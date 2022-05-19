@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alien-snakeapp
+  name: alien-snakeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alien-snakeapp
+  template:
+    metadata:
+      labels:
+        app: alien-snakeapp
+    spec:
+      containers:
+      - name: alien-snakeapp
+        image: alienke/snake
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alien-snakeapp
+spec:
+  type: NodePort
+  selector:
+    app: alien-snakeapp
+  ports:
+    - protocol: TCP
+      port: 9001
+      targetPort: 3000
+      nodePort: 30080
+      

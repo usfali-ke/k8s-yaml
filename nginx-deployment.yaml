@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alien-nginx
+  name: alien-nginx
+spec:
+  selector:
+    matchLabels:
+      app: alien-nginx
+  template:
+    metadata:
+      labels:
+        app: alien-nginx
+    spec:
+      containers:
+      - image: nginx
+        #imagePullPolicy: IfNotPresent
+        name: alien-nginx
+        resources:
+          requests:
+            cpu: 50m
+      # nodeName: kworker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alien-nginx
+spec:
+  selector:
+    app: alien-nginx
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30036

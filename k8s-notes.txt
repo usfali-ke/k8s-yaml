@@ -1,0 +1,7 @@
+
+Added label to node k8sworker1:
+alien@k8smaster:~$ kubectl label nodes k8sworker1 environ=testnodes1
+	node/k8sworker1 labeled
+alien@k8smaster:~$ kubectl get nodes --show-labels
+
+
